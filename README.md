@@ -3,7 +3,7 @@ Twitter Stats tracker
 
 Tracks twitter handles for basic statistics (follower count etc.)
 
-DEPLOY
+Deploy
 ------
 
 1. Clone
@@ -27,7 +27,7 @@ $ cp settings.php.dist settings.php
 
 5. Configure *settings.php* file
 
-USE
+Use
 ---
 
 Run with
@@ -36,3 +36,15 @@ $ php console.php
 ```
 
 This writes CSV data in the *data/* folder.
+
+Automatic collection
+--------------------
+
+Open crontab
+```
+$ crontab -e
+```
+Add this (runs 10 minutes past the hour, every second hour)
+```
+10 */2 * * * /usr/bin/php [PATH_TO_DIRECTORY]/Twitter-stats/console.php
+```
