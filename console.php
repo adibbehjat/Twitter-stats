@@ -4,8 +4,12 @@ require 'vendor/autoload.php';
 
 require 'settings.php';
 
-$url = 'https://api.twitter.com/1.1/users/lookup.json';
-$getfield = sprintf('?include_entities=false&screen_name=%s', implode(",", $profiles_to_query));
+// $url = 'https://api.twitter.com/1.1/users/lookup.json';
+// $getfield = sprintf('?include_entities=false&screen_name=%s', implode(",", $profiles_to_query));
+// $requestMethod = 'GET';
+
+$url = 'https://api.twitter.com/1.1/users/show.json';
+$getfield = '?screen_name=abehjat';
 $requestMethod = 'GET';
 
 $twitter = new TwitterAPIExchange($settings);
@@ -15,12 +19,13 @@ $dataIn = $twitter->setGetfield($getfield)
 
 $dataIn = json_decode($dataIn);
 
-$date = date('c');
+echo '<pre>';
+print_r($dataIn);
+echo '</pre>';
 
 $out = array();
 foreach ($dataIn as $data) {
 	$out[] = array(
-		'date'           => $date,
 		'name'           => $data->screen_name,
 		'followers'      => $data->followers_count,
 		'follows_others' => $data->friends_count,
@@ -31,12 +36,11 @@ foreach ($dataIn as $data) {
 	
 }
 
-$fp = fopen('data/twitter_data_all.csv', 'a');
+// $fp = fopen('data/twitter_data_all.csv', 'a');
 
-foreach ($out as $fields) {
-    fputcsv($fp, $fields);
-}
+// foreach ($out as $fields) {
+//     fputcsv($fp, $fields);
+// }
 
-fclose($fp);
-
+// fclose($fp);
 
